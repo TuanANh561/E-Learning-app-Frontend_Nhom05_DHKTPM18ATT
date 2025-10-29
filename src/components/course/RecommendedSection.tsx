@@ -2,22 +2,24 @@ import React, { useCallback, useMemo } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import CourseCard from '../course/CourseCard';
 import { Course, User } from '../../types';
+import useUsers from '../../hooks/useUsers';
 
 interface RecommendedSectionProps {
   courses: Course[];
-  users: User[];
   onViewMore?: () => void;
 }
 
-const MAX_DISPLAY_COUNT = 2;
+export default function RecommendedSection({ courses, onViewMore }: RecommendedSectionProps) {
+  const { users } = useUsers();
+  
+  const MAX_DISPLAY_COUNT = 2;
 
-export default function RecommendedSection({ courses, users, onViewMore }: RecommendedSectionProps) {
   const displayedCourses = useMemo(() => {
     return courses.slice(0, MAX_DISPLAY_COUNT);
   }, [courses]);
 
   const renderCourse = useCallback(({ item }: { item: Course }) => (
-    <CourseCard course={item} users={users} />
+    <CourseCard course={item} />
   ), [users]);
 
   return (

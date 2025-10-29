@@ -61,9 +61,9 @@ export default function HomeScreen() {
 
         <CategorySection categories={categories} />
 
-        <PopularCoursesSection courses={courses} users={allUsers} onViewMore={() => {}} />
-        <RecommendedSection courses={courses.slice(4, 6)} users={allUsers} onViewMore={() => {}} />
-        <InspiringCoursesSection courses={courses.slice(6, 9)} users={allUsers} onViewMore={() => {}} />
+        <PopularCoursesSection courses={courses} onViewMore={() => {}} />
+        <RecommendedSection courses={courses.slice(4, 6)} onViewMore={() => {}} />
+        <InspiringCoursesSection courses={courses.slice(6, 9)} onViewMore={() => {}} />
 
         <TopTeachersSection teachers={teachers} onViewMore={() => {}} />
 

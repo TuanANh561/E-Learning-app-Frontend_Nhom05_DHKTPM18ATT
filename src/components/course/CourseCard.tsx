@@ -1,20 +1,21 @@
-import { Course, User } from '../../types';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useMemo, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { Course, RootStackParamList } from '../../types';
+import { StackNavigationProp } from '@react-navigation/stack';
+import useUsers from '../../hooks/useUsers';
 
 type CourseCardProps = {
   course: Course;
-  users: User[];
 };
 
-export default function CourseCard({ course, users }: CourseCardProps) {
+export default function CourseCard({ course }: CourseCardProps) {
+  const { users } = useUsers();
   const teacher = useMemo(() => users.find((u) => u.id === course.teacher_id && u.role === 'TEACHER'), [course.teacher_id, users]);
 
-  const navigation = useNavigation();
-
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'CourseDetail'>>();
   const handlePress = useCallback(() => {
-    (navigation as any).navigate('CourseDetail', { courseId: course.id }); 
+    navigation.navigate('CourseDetail', { courseId: course.id }); 
   }, [navigation, course.id]);
 
   return (

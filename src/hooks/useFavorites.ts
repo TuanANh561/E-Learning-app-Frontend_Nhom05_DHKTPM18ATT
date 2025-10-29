@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Favorite } from '../types';
-
-const API_BASE_URL = 'http://192.168.1.4:3000'; 
+import { API_URL } from './api';
 
 export default function useFavorites(userId: number | null) {
     const [favorites, setFavorites] = useState<Favorite[]>([]);
@@ -19,7 +18,7 @@ export default function useFavorites(userId: number | null) {
         setLoading(true);
         setError(null);
         try {
-            const res = await axios.get<Favorite[]>(`${API_BASE_URL}/favorites?user_id=${userId}`);
+            const res = await axios.get<Favorite[]>(`${API_URL.favorites}?user_id=${userId}`);
             setFavorites(res.data);
         } catch (err: any) {
             setError(err.message || `Lỗi khi tải danh sách yêu thích của user ${userId}`);

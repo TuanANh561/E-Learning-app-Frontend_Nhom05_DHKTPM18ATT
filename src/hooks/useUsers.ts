@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { User } from '../types';
-
-const API_URL = 'http://192.168.1.4:3000/users';
+import { API_URL } from './api';
 
 export default function useUsers() {
 	const [users, setUsers] = useState<User[]>([]);
@@ -13,7 +12,7 @@ export default function useUsers() {
 		setLoading(true);
 		setError(null);
 		try {
-			const res = await axios.get(API_URL);
+			const res = await axios.get(API_URL.users);
 			setUsers(res.data);
 		} catch (err: any) {
 			setError(err.message || 'Lỗi khi tải người dùng');

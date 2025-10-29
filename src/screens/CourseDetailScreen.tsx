@@ -1,13 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import {
-  ScrollView,
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  Dimensions,
-  ActivityIndicator,
-} from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Pressable, Dimensions, ActivityIndicator,} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
@@ -27,12 +19,10 @@ import { RootStackParamList } from '../types';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
-type CourseDetailRouteProp = RouteProp<RootStackParamList, 'CourseDetail'>;
-
 export default function CourseDetailScreen() {
-  const route = useRoute<CourseDetailRouteProp>();
-  const navigation = useNavigation<any>();
-  const courseId = Number(route.params?.courseId ?? '');
+  const route = useRoute<RouteProp<RootStackParamList, 'CourseDetail'>>();
+  const navigation = useNavigation();
+  const courseId = Number(route.params.courseId);
 
   const { courses, loading: coursesLoading } = useCourses();
   const { users, loading: usersLoading } = useUsers();
@@ -95,11 +85,11 @@ export default function CourseDetailScreen() {
   const renderTabContent = () => {
     switch (activeTab) {
       case 'OVERVIEW':
-        return <CourseOverviewTab course={course} teacher={teacher} similarCourses={similarCourses} allUsers={users} />;
+        return <CourseOverviewTab course={course} teacher={teacher} similarCourses={similarCourses} />;
       case 'LESSONS':
         return <CourseLessonsTab lessons={courseLessons} sections={courseSections} />;
       case 'REVIEW':
-        return <CourseReviewTab reviews={courseReviews} allUsers={users} course={course} />;
+        return <CourseReviewTab reviews={courseReviews} course={course} />;
       default:
         return null;
     }

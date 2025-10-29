@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { MyCourse } from '../types';
+import { API_URL } from './api';
 
-const API = 'http://192.168.1.4:3000';
 const USER_ID = 1;
 
 export default function useMyCourses() {
@@ -13,7 +13,7 @@ export default function useMyCourses() {
     setLoading(true);
     try {
       const res = await axios.get<MyCourse[]>(
-        `${API}/my-courses?user_id=${USER_ID}`
+        `${API_URL.myCourses}?user_id=${USER_ID}`
       );
       setCourses(res.data);
     } catch (error) {

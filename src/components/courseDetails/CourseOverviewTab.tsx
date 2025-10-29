@@ -9,10 +9,9 @@ interface Props {
   course: Course;
   teacher?: User;
   similarCourses: Course[];
-  allUsers: User[];
 }
 
-export default function CourseOverviewTab({ course, teacher, similarCourses, allUsers }: Props) {
+export default function CourseOverviewTab({ course, teacher, similarCourses }: Props) {
   const [full, setFull] = useState(false);
 
   const benefits = [
@@ -62,7 +61,7 @@ export default function CourseOverviewTab({ course, teacher, similarCourses, all
       <Text style={st.sec}>Similar courses</Text>
       <FlatList
         data={similarCourses}
-        renderItem={({ item }) => <CourseCardVertical course={item} users={allUsers} />}
+        renderItem={({ item }) => <CourseCardVertical course={item} />}
         keyExtractor={i => i.id.toString()}
         scrollEnabled={false}
       />

@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Lesson } from '../types'; // Import Lesson type
-
-const API_URL = 'http://192.168.1.4:3000/lessons'; // ✅ URL cho Lessons
+import { Lesson } from '../types';
+import { API_URL } from './api';
 
 export default function useLessons() {
     const [lessons, setLessons] = useState<Lesson[]>([]);
@@ -13,7 +12,7 @@ export default function useLessons() {
         setLoading(true);
         setError(null);
         try {
-            const res = await axios.get(API_URL);
+            const res = await axios.get(API_URL.lessons);
             setLessons(res.data);
         } catch (err: any) {
             setError(err.message || 'Lỗi khi tải các bài học');
@@ -22,9 +21,23 @@ export default function useLessons() {
         }
     }, []);
 
+    const fetchLessonById = useCallback(async (id: number) => {
+        try {
+            const res = await axios.get<Lesson>(`${API_URL.lessons}/${id}`);
+            return res.data;
+        } catch (error) {
+            console.error("Lỗi khi lấy bài học ID:", id, error);
+            return lessons.find(l => l.id === id) || null;
+        }
+    }, [lessons]);
+
     useEffect(() => {
         fetchData();
     }, [fetchData]);
 
-    return { lessons, loading, error, refetch: fetchData };
+    const getLessonsBySectionId = (sectionId: number): Lesson[] => {
+        return lessons.filter(lesson => lesson.section_id === sectionId);
+    };
+
+    return { lessons, loading, error, refetch: fetchData, fetchLessonById, getLessonsBySectionId };
 }

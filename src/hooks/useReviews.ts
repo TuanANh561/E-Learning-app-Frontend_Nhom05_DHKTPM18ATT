@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Review } from '../types'; // Import Review type
-
-const API_URL = 'http://192.168.1.4:3000/reviews'; // ✅ URL cho Reviews
+import { Review } from '../types';
+import { API_URL } from './api';
 
 export default function useReviews() {
     const [reviews, setReviews] = useState<Review[]>([]);
@@ -13,7 +12,7 @@ export default function useReviews() {
         setLoading(true);
         setError(null);
         try {
-            const res = await axios.get(API_URL);
+            const res = await axios.get(API_URL.reviews);
             setReviews(res.data);
         } catch (err: any) {
             setError(err.message || 'Lỗi khi tải đánh giá');

@@ -3,19 +3,21 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, Pressable, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Review, User, Course } from '../../types';
+import useUsers from '../../hooks/useUsers';
 
 interface Props {
   reviews: Review[];
-  allUsers: User[];
   course: Course;
 }
 
-export default function CourseReviewTab({ reviews, allUsers, course }: Props) {
+export default function CourseReviewTab({ reviews, course }: Props) {
+  const { users } = useUsers();
   const [filter, setFilter] = useState<number | 'All'>('All');
   const filtered = filter === 'All' ? reviews : reviews.filter(r => r.rating === filter);
 
   const renderReview = ({ item }: { item: Review }) => {
-    const user = allUsers.find(u => u.id === item.user_id);
+    
+    const user = users.find(u => u.id === item.user_id);
     return (
       <View style={styles.review}>
         <Image source={{ uri: user?.avatar_url || 'https://via.placeholder.com/40' }} style={styles.avatar} />

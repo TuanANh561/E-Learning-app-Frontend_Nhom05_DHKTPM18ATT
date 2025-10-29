@@ -1,6 +1,4 @@
-import { StackNavigationProp } from '@react-navigation/stack';
 
-// ✅ Định nghĩa Root Stack Params (Cần cho CourseCard để navigate)
 export type RootStackParamList = {
     Home: undefined;
     Search: undefined;
@@ -8,11 +6,16 @@ export type RootStackParamList = {
     Profile: undefined;
     CourseDetail: { courseId: number };
     Learning: { lessonId: number; courseId: number };
-    HomeFeed: undefined;
+    CoursesByCategory: { categoryId: number; categoryName: string };
+    TeacherProfile: { teacherId: number };
 };
 
-// ✅ Định nghĩa kiểu Navigation Prop cho Home Stack
-export type CourseCardNavigationProp = StackNavigationProp<RootStackParamList, 'HomeFeed'>;
+export type RootTabParamList = {
+  HomeTab: undefined;
+  SearchTab: undefined;
+  MyCoursesTab: undefined;
+  ProfileTab: undefined;
+};
 
 export type User = {
 	id: number;

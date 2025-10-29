@@ -1,19 +1,28 @@
-import { User } from '../../types';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList, User } from '../../types';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { useCallback } from 'react';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 type TeacherCardProps = {
 	teacher: User;
 };
 
 export default function TeacherCard({ teacher }: TeacherCardProps) {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'TeacherProfile'>>();
+
+  const handlePress = useCallback(() => {
+    navigation.navigate('TeacherProfile', { teacherId: teacher.id });
+  }, [teacher.id, navigation]);
+
 	return (
-		<View style={styles.container}>
-			<Image source={{ uri: teacher.avatar_url || 'https://via.placeholder.com/50' }} style={styles.avatar} />
+		<Pressable onPress={handlePress} style={styles.container}>
+			<Image source={{ uri: teacher.avatar_url }} style={styles.avatar} />
 			<View style={styles.info}>
 				<Text style={styles.name}>{teacher.full_name}</Text>
 				<Text style={styles.rating}>★ 4.5 (1233)</Text>
 			</View>
-		</View>
+		</Pressable>
 	);
 }
 

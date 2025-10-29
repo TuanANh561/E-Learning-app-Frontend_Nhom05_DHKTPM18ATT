@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Category } from '../types';
-
-const API_URL = 'http://192.168.1.4:3000/categories';
+import { API_URL } from './api';
 
 export default function useCategories() {
 	const [categories, setCategories] = useState<Category[]>([]);
@@ -13,7 +12,7 @@ export default function useCategories() {
 		setLoading(true);
 		setError(null);
 		try {
-			const res = await axios.get(API_URL);
+			const res = await axios.get(API_URL.categories);
 			setCategories(res.data);
 		} catch (err: any) {
 			setError(err.message || 'Lỗi khi tải danh mục');

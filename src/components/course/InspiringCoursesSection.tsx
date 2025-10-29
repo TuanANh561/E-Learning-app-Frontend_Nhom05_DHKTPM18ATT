@@ -2,16 +2,17 @@ import React, { useCallback } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import CourseCardVertical from '../course/CourseCardVertical';
 import { Course, User } from '../../types';
+import useUsers from '../../hooks/useUsers';
 
 interface InspiringCoursesSectionProps {
   courses: Course[];
-  users: User[];
   onViewMore?: () => void;
 }
 
-export default function InspiringCoursesSection({ courses, users, onViewMore }: InspiringCoursesSectionProps) {
+export default function InspiringCoursesSection({ courses, onViewMore }: InspiringCoursesSectionProps) {
+  const { users } = useUsers();
   const renderCourse = useCallback(({ item }: { item: Course }) => (
-    <CourseCardVertical course={item} users={users} />
+    <CourseCardVertical course={item} />
   ), [users]);
 
   return (

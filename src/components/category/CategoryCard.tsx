@@ -1,23 +1,29 @@
 import { Image, Pressable, StyleSheet, Text } from 'react-native';
-import { Category } from '../../types';
+import { Category, RootStackParamList } from '../../types';
 import { useCallback } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 type CategoryCardProps = {
   category: Category;
   onPress: () => void;
 };
 
-export default function CategoryCard({ category, onPress }: CategoryCardProps) {
+export default function CategoryCard({ category }: CategoryCardProps) {
   const colors = ['#00bfff', '#9b59b6', '#e74c3c', '#2ecc71', '#f1c40f'];
   const bgColor = colors[(category.id % colors.length)]; 
 
-  const handlePress = useCallback(() => onPress(), [onPress]);
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'CoursesByCategory'>>();
+
+  const handlePress = useCallback(() => {
+    navigation.navigate('CoursesByCategory', {
+      categoryId: category.id,
+      categoryName: category.name,
+    });
+  }, [category, navigation]);
 
   return (
-    <Pressable 
-      onPress={handlePress} 
-      style={[styles.container, { backgroundColor: bgColor }]}
-    >
+    <Pressable onPress={handlePress} style={[styles.container, { backgroundColor: bgColor }]}>
       <Image source={{ uri: category.image_Url }} style={{ width: 50, height: 50, marginBottom: 10 }} />
       <Text style={styles.text}>{category.name}</Text>
     </Pressable>

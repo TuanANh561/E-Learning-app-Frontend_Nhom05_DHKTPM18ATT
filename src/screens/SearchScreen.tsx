@@ -10,7 +10,6 @@ import CourseCard from '../components/course/CourseCard';
 import CourseCardVertical from '../components/course/CourseCardVertical';
 import { Course } from '../types';
 
-// Dữ liệu mô phỏng Topics
 const HOT_TOPICS = ['Java', 'SQL', 'Javascript', 'Python', 'Digital marketing', 'Photoshop', 'Watercolor'];
 
 export default function SearchScreen() {
@@ -31,9 +30,7 @@ export default function SearchScreen() {
 
 
     useEffect(() => {
-        if (error) {
-            Alert.alert('Lỗi kết nối', error);
-        }
+        if (error) {Alert.alert('Lỗi kết nối', error);}
     }, [error]);
 
     useEffect(() => {
@@ -66,18 +63,13 @@ export default function SearchScreen() {
     
     const renderRecommendedCard = useCallback(({ item }: { item: Course }) => (
         <View>
-            <CourseCard course={item} 
-                users={allUsers} 
-            />
+            <CourseCard course={item} />
         </View>
     ), [allUsers]);
     
     const renderCourseCardResult = useCallback(({ item }: { item: Course }) => (
         <View style={styles.courseResultItem}>
-            <CourseCardVertical 
-                course={item} 
-                users={allUsers} 
-            />
+            <CourseCardVertical course={item} />
         </View>
     ), [allUsers]);
 
@@ -88,7 +80,7 @@ export default function SearchScreen() {
 
     const renderDefaultState = () => (
         <ScrollView style={styles.contentContainer} showsVerticalScrollIndicator={false}>
-            {/* Hot Topics */}
+
             <Text style={styles.hotTopicsTitle}>Hot topics</Text>
             <View style={styles.hotTopicsContainer}>
                 {HOT_TOPICS.map((topic, index) => (
@@ -102,10 +94,8 @@ export default function SearchScreen() {
                 ))}
             </View>
 
-            {/* Categories */}
             <CategoryListSearch categories={categories} onCategoryPress={handleTopicOrCategoryPress} />
 
-            {/* Recommended for you (Cuộn ngang) */}
             <View style={[styles.sectionHeader, { marginTop: 20 }]}>
                 <Text style={styles.sectionTitle}>Recommended for you</Text>
                 <Pressable onPress={() => {}}><Text style={styles.viewMore}>View more</Text></Pressable>
@@ -195,7 +185,6 @@ const styles = StyleSheet.create({
     },
     filterText: { color: '#fff', fontWeight: 'bold', marginLeft: 5 },
     
-    // Default State
     hotTopicsTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 10, marginTop: 10 },
     hotTopicsContainer: { flexDirection: 'row', flexWrap: 'wrap', marginBottom: 20 },
     topicTag: {
@@ -214,7 +203,6 @@ const styles = StyleSheet.create({
     recommendedCourseCard: { width: 180, marginRight: 10 },
     horizontalListContainer: { paddingRight: 20 },
 
-    // Results State
     resultsContainer: { flex: 1, paddingHorizontal: 20 },
     resultsCount: { fontSize: 14, color: '#666', marginBottom: 10, marginTop: 5 },
     courseResultItem: { marginBottom: 10 },

@@ -1,31 +1,32 @@
-import { Course, User } from '../../types';
+import { Course, RootStackParamList, User } from '../../types';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useMemo, useState, useCallback } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import useUsers from '../../hooks/useUsers';
 
 type CourseCardVerticalProps = {
   course: Course;
-  users: User[];
 };
 
-export default function CourseCardVertical({ course, users }: CourseCardVerticalProps) {
+export default function CourseCardVertical({ course }: CourseCardVerticalProps) {
+  const [isSaved, setIsSaved] = useState(false);
+  const { users } = useUsers();
+
   const teacher = useMemo(
     () => users.find((u) => u.id === course.teacher_id && u.role === 'TEACHER'),
     [course.teacher_id, users]
   );
 
-  const [isSaved, setIsSaved] = useState(false);
-
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'CourseDetail'>>();
+  const handlePress = useCallback(() => {
+    navigation.navigate('CourseDetail', { courseId: course.id });
+  }, [navigation, course.id]);
 
   const toggleSaved = useCallback(() => {
     setIsSaved(prev => !prev);
   }, [isSaved]);
-
-  const handlePress = useCallback(() => {
-    (navigation as any).navigate('CourseDetail', { courseId: course.id });
-  }, [navigation, course.id]);
 
   return (
     <Pressable onPress={handlePress} style={styles.container}>
