@@ -1,0 +1,55 @@
+import { Course, User } from '../../types';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { useMemo, useCallback } from 'react';
+import { useNavigation } from '@react-navigation/native';
+
+type CourseCardProps = {
+  course: Course;
+  users: User[];
+};
+
+export default function CourseCard({ course, users }: CourseCardProps) {
+  const teacher = useMemo(() => users.find((u) => u.id === course.teacher_id && u.role === 'TEACHER'), [course.teacher_id, users]);
+
+  const navigation = useNavigation();
+
+  const handlePress = useCallback(() => {
+    (navigation as any).navigate('CourseDetail', { courseId: course.id }); 
+  }, [navigation, course.id]);
+
+  return (
+    <Pressable onPress={handlePress}style={styles.container}>
+      <Image source={{ uri: course.thumbnail }} style={styles.thumbnail} />
+      <View style={styles.info}>
+        <Text style={styles.title} numberOfLines={2}>{course.title}</Text>
+        <Text style={styles.teacher}>{teacher ? teacher.full_name : 'Unknown'}</Text> 
+        <Text style={styles.price}>${course.price}</Text>
+        <View style={styles.rating}>
+          <Text style={styles.ratingText}>★ {course.rating_avg.toFixed(1)} ({course.rating_count})</Text>
+          <Text style={styles.lessons}>• {course.lesson_count} lessons</Text>
+        </View>
+      </View>
+    </Pressable>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#eee',
+    marginBottom: 10,
+    padding: 10,
+    marginRight: 5,
+    width: 250,
+  },
+  thumbnail: { width: '100%', height: 120, borderRadius: 8, marginBottom: 10 },
+  info: { padding: 5 },
+  title: { fontSize: 16, fontWeight: 'bold', color: '#000' },
+  teacher: { fontSize: 14, color: '#666', marginTop: 4 },
+  price: { fontSize: 16, color: '#00bfff', fontWeight: 'bold', marginTop: 4 },
+  rating: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 4 },
+  ratingText: { fontSize: 14, color: '#666' },
+  lessons: { fontSize: 14, color: '#666' },
+});
