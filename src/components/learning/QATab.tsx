@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, Image, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, Image, StyleSheet, TextInput } from 'react-native';
 
 // DỮ LIỆU GIẢ ĐỊNH (có thể di chuyển ra file riêng nếu cần)
 const DUMMY_QNA_USERS = [
@@ -87,15 +87,7 @@ const QATab = () => (
         style={styles.qnaAvatarInput}
       />
       <View style={styles.qnaInputInner}>
-        <View style={styles.emojiContainer}>
-          <Text>Smiling Face</Text>
-          <Text>Loving Face</Text>
-          <Text>Red Heart</Text>
-          <Text>Party Popper</Text>
-          <Text>Face with Rolling Eyes</Text>
-          <Text>Fire</Text>
-        </View>
-        <Text style={styles.qnaInputPlaceholder}>Write a Q&A...</Text>
+        <TextInput placeholder="Viết câu hỏi hoặc bình luận..."  />
       </View>
     </View>
   </View>

@@ -1,104 +1,62 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, FlatList, ActivityIndicator, StyleSheet, Alert, Pressable} from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, StyleSheet, Pressable, Alert,} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
+
 import CourseCardVertical from '../components/course/CourseCardVertical';
 import useCourses from '../hooks/useCourses';
-import useUsers from '../hooks/useUsers';
 import { Course, RootStackParamList } from '../types';
+
+const PAGE_SIZE = 6;
 
 export default function CoursesByCategoryScreen() {
   const route = useRoute<RouteProp<RootStackParamList, 'CoursesByCategory'>>();
-  const categoryId = route.params.categoryId;
-  const categoryName = route.params.categoryName;
+  const { categoryId, categoryName } = route.params;
+  const navigation = useNavigation<any>();
 
-  const navigation = useNavigation();
-
-  const { fetchByCategoryId, loading: globalLoading } = useCourses();
-  const { users, loading: usersLoading } = useUsers();
+  const { fetchByCategoryId } = useCourses();
 
   const [courses, setCourses] = useState<Course[]>([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
-  const limit = 6;
-
-  const loading = globalLoading || usersLoading;
-
-  const loadCourses = useCallback(
-    async (pageNum: number, isLoadMore = false, isRefresh = false) => {
-      if (!isLoadMore && !isRefresh) setIsLoadingMore(true);
-      if (isRefresh) setIsRefreshing(true);
+  const load = useCallback(
+    async (pageNum: number, append = false, refresh = false) => {
+      const setLoad = refresh ? setRefreshing : append ? setLoadingMore : setLoading;
+      setLoad(true);
 
       try {
-        const result = await fetchByCategoryId(categoryId, pageNum, limit);
-        const newCourses = result.data;
-
-        if (isLoadMore) {
-          setCourses((prev) => [...prev, ...newCourses]);
-        } else {
-          setCourses(newCourses);
-        }
-        setTotal(result.total);
-        if (!isLoadMore) setPage(1);
-      } catch (err) {
-        Alert.alert('Lỗi', 'Không thể tải khóa học. Vui lòng thử lại.');
+        const { data, total } = await fetchByCategoryId(categoryId, pageNum, PAGE_SIZE);
+        setCourses(append ? (prev) => [...prev, ...data] : data);
+        setTotal(total);
+        if (!append) setPage(1);
+      } catch {
+        Alert.alert('Lỗi', 'Không thể tải khóa học');
       } finally {
-        setIsLoadingMore(false);
-        setIsRefreshing(false);
+        setLoad(false);
       }
     },
     [categoryId, fetchByCategoryId]
   );
 
   useEffect(() => {
-    loadCourses(1, false, false);
-  }, [loadCourses]);
+    load(1);
+  }, [load]);
 
-  const handleLoadMore = useCallback(() => {
-    if (courses.length < total && !isLoadingMore && !isRefreshing) {
-      const nextPage = page + 1;
-      setPage(nextPage);
-      loadCourses(nextPage, true, false);
+  const onLoadMore = useCallback(() => {
+    if (courses.length < total && !loadingMore && !refreshing) {
+      load(page + 1, true);
+      setPage((p) => p + 1);
     }
-  }, [courses.length, total, isLoadingMore, isRefreshing, page, loadCourses]);
+  }, [courses.length, total, loadingMore, refreshing, page, load]);
 
-  const handleRefresh = useCallback(() => {
-    loadCourses(1, false, true);
-  }, [loadCourses]);
-
-  const renderItem = useCallback(({ item }: { item: Course }) => (
-      <CourseCardVertical course={item} />
-    ),[users]);
-
-  const keyExtractor = useCallback((item: Course) => item.id.toString(), []);
-
-  const renderFooter = () => {
-    if (!isLoadingMore) return null;
-    return (
-      <View style={styles.footerLoader}>
-        <ActivityIndicator size="small" color="#00bfff" />
-      </View>
-    );
-  };
-
-  const renderEmpty = () => (
-    <View style={styles.emptyContainer}>
-      <Ionicons name="book-outline" size={60} color="#ccc" />
-      <Text style={styles.emptyText}>Chưa có khóa học nào trong danh mục này</Text>
-    </View>
-  );
-
-  if (loading && courses.length === 0) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <ActivityIndicator size="large" color="#00bfff" style={{ flex: 1 }} />
-      </SafeAreaView>
-    );
-  }
+  const onRefresh = useCallback(() => {
+    load(1, false, true);
+  }, [load]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -106,32 +64,48 @@ export default function CoursesByCategoryScreen() {
         <Pressable onPress={() => navigation.goBack()} hitSlop={10}>
           <Ionicons name="arrow-back" size={26} color="#000" />
         </Pressable>
-        <Text style={styles.headerTitle}>{categoryName}</Text>
+        <Text style={styles.title} numberOfLines={1}>
+          {categoryName}
+        </Text>
         <View style={{ width: 26 }} />
       </View>
 
       <FlatList
         data={courses}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
+        renderItem={({ item }) => <CourseCardVertical course={item} />}
+        keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.list}
-        onEndReached={handleLoadMore}
+        onEndReached={onLoadMore}
         onEndReachedThreshold={0.5}
-        ListFooterComponent={renderFooter}
-        ListEmptyComponent={renderEmpty}
-        refreshing={isRefreshing}
-        onRefresh={handleRefresh}
+        ListFooterComponent={() =>
+          loadingMore ? (
+            <ActivityIndicator style={styles.footer} color="#00bfff" />
+          ) : null
+        }
+        ListEmptyComponent={
+          loading ? null : (
+            <View style={styles.empty}>
+              <Ionicons name="book-outline" size={60} color="#ccc" />
+              <Text style={styles.emptyText}>Chưa có khóa học nào</Text>
+            </View>
+          )
+        }
+        refreshing={refreshing}
+        onRefresh={onRefresh}
         showsVerticalScrollIndicator={false}
       />
+
+      {loading && courses.length === 0 && (
+        <View style={styles.fullLoader}>
+          <ActivityIndicator size="large" color="#00bfff" />
+        </View>
+      )}
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
+  container: { flex: 1, backgroundColor: '#fff' },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -141,22 +115,22 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#eee',
   },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#000',
+  title: {
     flex: 1,
     textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
     marginRight: 26,
   },
-  list: {
-    padding: 15,
-  },
-  footerLoader: {
-    paddingVertical: 20,
+  list: { padding: 15 },
+  footer: { paddingVertical: 20 },
+  fullLoader: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.9)',
   },
-  emptyContainer: {
+  empty: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -166,6 +140,5 @@ const styles = StyleSheet.create({
     marginTop: 16,
     fontSize: 16,
     color: '#999',
-    textAlign: 'center',
   },
 });

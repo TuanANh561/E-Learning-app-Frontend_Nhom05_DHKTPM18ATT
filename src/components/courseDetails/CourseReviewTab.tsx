@@ -17,7 +17,7 @@ export default function CourseReviewTab({ reviews, course }: Props) {
 
   const renderReview = ({ item }: { item: Review }) => {
     
-    const user = users.find(u => u.id === item.user_id);
+    const user = users.find(u => Number(u.id) === item.user_id);
     return (
       <View style={styles.review}>
         <Image source={{ uri: user?.avatar_url || 'https://via.placeholder.com/40' }} style={styles.avatar} />

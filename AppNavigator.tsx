@@ -11,6 +11,10 @@ import LearningScreen from './src/screens/LearningScreen';
 import { RootStackParamList, RootTabParamList } from './src/types';
 import CoursesByCategoryScreen from './src/screens/CoursesByCategoryScreen';
 import TeacherProfileScreen from './src/screens/TeacherProfileScreen';
+import CourseListScreen from './src/screens/CourseListScreen';
+import PaymentScreen from './src/screens/PaymentScreen';
+import LoginScreen from './src/screens/LoginScreen';
+import RegisterScreen from './src/screens/RegisterScreen';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -22,6 +26,8 @@ const HomeStack = () => (
     <Stack.Screen name="Learning" component={LearningScreen} />
     <Stack.Screen name="CoursesByCategory" component={CoursesByCategoryScreen} />
     <Stack.Screen name="TeacherProfile" component={TeacherProfileScreen} />
+    <Stack.Screen name="CourseListScreen" component={CourseListScreen} />
+    <Stack.Screen name="Payment" component={PaymentScreen} />
   </Stack.Navigator>
 );
 
@@ -30,6 +36,8 @@ const SearchStack = () => (
     <Stack.Screen name="Search" component={SearchScreen} />
     <Stack.Screen name="CourseDetail" component={CourseDetailScreen} />
     <Stack.Screen name="Learning" component={LearningScreen} />
+    <Stack.Screen name="CourseListScreen" component={CourseListScreen} />
+    <Stack.Screen name="Payment" component={PaymentScreen} />
   </Stack.Navigator>
 );
 
@@ -38,6 +46,7 @@ const MyCoursesStack = () => (
     <Stack.Screen name="MyCourses" component={MyCoursesScreen} />
     <Stack.Screen name="CourseDetail" component={CourseDetailScreen} />
     <Stack.Screen name="Learning" component={LearningScreen} />
+    <Stack.Screen name="Payment" component={PaymentScreen} />
   </Stack.Navigator>
 );
 
@@ -46,6 +55,9 @@ const ProfileStack = () => (
     <Stack.Screen name="Profile" component={ProfileScreen} />
     <Stack.Screen name="CourseDetail" component={CourseDetailScreen} />
     <Stack.Screen name="Learning" component={LearningScreen} />
+    <Stack.Screen name="Payment" component={PaymentScreen} />
+    <Stack.Screen name="Login" component={LoginScreen} />
+    <Stack.Screen name="Register" component={RegisterScreen} />
   </Stack.Navigator>
 );
 
@@ -59,10 +71,10 @@ export default function AppNavigator() {
           headerShown: false, 
         }}
       >
-        <Tab.Screen name="HomeTab" component={HomeStack} options={{ tabBarIcon: ({ color }) => <Ionicons name="home" size={24} color={color} /> }} />
-        <Tab.Screen name="SearchTab" component={SearchStack} options={{ tabBarIcon: ({ color }) => <Ionicons name="search" size={24} color={color} /> }} />
-        <Tab.Screen name="MyCoursesTab" component={MyCoursesStack} options={{ tabBarIcon: ({ color }) => <Ionicons name="book" size={24} color={color} /> }} />
-        <Tab.Screen name="ProfileTab" component={ProfileStack} options={{ tabBarIcon: ({ color }) => <Ionicons name="person" size={24} color={color} /> }} />
+        <Tab.Screen name="Home" component={HomeStack} options={{ tabBarIcon: ({ color }) => <Ionicons name="home" size={24} color={color} /> }} />
+        <Tab.Screen name="Search" component={SearchStack} options={{ tabBarIcon: ({ color }) => <Ionicons name="search" size={24} color={color} /> }} />
+        <Tab.Screen name="MyCourses" component={MyCoursesStack} options={{ tabBarIcon: ({ color }) => <Ionicons name="book" size={24} color={color} /> }} />
+        <Tab.Screen name="Profile" component={ProfileStack} options={{ tabBarIcon: ({ color }) => <Ionicons name="person" size={24} color={color} /> }} />
       </Tab.Navigator>
     </NavigationContainer>
   );

@@ -1,41 +1,29 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import {
-  ScrollView,
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  Dimensions,
-  ActivityIndicator,
-} from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Pressable, Dimensions, ActivityIndicator,} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { VideoView, useVideoPlayer } from 'expo-video';
-import * as ScreenOrientation from 'expo-screen-orientation';
 
 import useCourses from '../hooks/useCourses';
 import useUsers from '../hooks/useUsers';
-import useSections from '../hooks/useSections';
-import useLessons from '../hooks/useLessons';
 import useReviews from '../hooks/useReviews';
 
 import CourseOverviewTab from '../components/courseDetails/CourseOverviewTab';
 import CourseLessonsTab from '../components/courseDetails/CourseLessonsTab';
 import CourseReviewTab from '../components/courseDetails/CourseReviewTab';
 import { RootStackParamList } from '../types';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default function CourseDetailScreen() {
   const route = useRoute<RouteProp<RootStackParamList, 'CourseDetail'>>();
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'CourseDetail'>>();
   const courseId = Number(route.params.courseId);
 
   const { courses, loading: coursesLoading } = useCourses();
   const { users, loading: usersLoading } = useUsers();
-  const { sections, loading: sectionsLoading } = useSections();
-  const { lessons, loading: lessonsLoading } = useLessons();
   const { reviews, loading: reviewsLoading } = useReviews();
 
   const [activeTab, setActiveTab] = useState('OVERVIEW');
@@ -48,43 +36,20 @@ export default function CourseDetailScreen() {
     [courses, courseId, course]
   );
 
-  const courseSections = useMemo(() => sections.filter(s => Number(s.course_id) === courseId), [sections, courseId]);
-  const courseLessons = useMemo(
-    () => lessons.filter(l => courseSections.map(s => Number(s.id)).includes(l.section_id)),
-    [lessons, courseSections]
-  );
   const courseReviews = useMemo(() => reviews.filter(r => r.course_id === courseId), [reviews, courseId]);
 
-  // 🎬 Khởi tạo video player
   const player = useVideoPlayer(
     course?.video_url_preview || 'https://www.w3schools.com/html/mov_bbb.mp4',
     (player) => {
-      player.pause(); // không tự play khi mở
+      player.pause();
     }
   );
 
-  // 🛑 Hàm dừng video
   const handlePauseVideo = () => {
     if (player && player.pause) {
       player.pause();
     }
   };
-
-  // 🔁 Theo dõi xoay màn hình
-  useEffect(() => {
-    const subscription = ScreenOrientation.addOrientationChangeListener(evt => {
-      const o = evt.orientationInfo.orientation;
-      if (
-        o === ScreenOrientation.Orientation.LANDSCAPE_LEFT ||
-        o === ScreenOrientation.Orientation.LANDSCAPE_RIGHT
-      ) {
-        setIsFullScreen(true);
-      } else {
-        setIsFullScreen(false);
-      }
-    });
-    return () => ScreenOrientation.removeOrientationChangeListener(subscription);
-  }, []);
 
   useEffect(() => {
     if (!coursesLoading && !reviewsLoading) {
@@ -105,7 +70,7 @@ export default function CourseDetailScreen() {
     );
   }
 
-  if (coursesLoading || usersLoading || sectionsLoading || lessonsLoading || reviewsLoading || !course) {
+  if (coursesLoading || usersLoading || reviewsLoading || !course) {
     return <ActivityIndicator size="large" color="#00bfff" style={styles.loading} />;
   }
 
@@ -114,7 +79,7 @@ export default function CourseDetailScreen() {
       case 'OVERVIEW':
         return <CourseOverviewTab course={course} teacher={teacher} similarCourses={similarCourses} />;
       case 'LESSONS':
-        return <CourseLessonsTab lessons={courseLessons} sections={courseSections} onLessonPressPause={handlePauseVideo}  />;
+        return <CourseLessonsTab courseId={courseId} onLessonPressPause={handlePauseVideo}  />;
       case 'REVIEW':
         return <CourseReviewTab reviews={courseReviews} course={course} />;
       default:
@@ -125,7 +90,6 @@ export default function CourseDetailScreen() {
   return (
     <SafeAreaView style={styles.fullScreenContainer}>
       <ScrollView style={styles.scrollView}>
-        {/* === HEADER === */}
         {!isFullScreen && (
           <View style={styles.header}>
             <Pressable onPress={() => navigation.goBack()}>
@@ -139,17 +103,14 @@ export default function CourseDetailScreen() {
           </View>
         )}
 
-        {/* === VIDEO PLAYER === */}
         <View style={[styles.videoContainer, isFullScreen && styles.videoFull]}>
-          <VideoView
-            style={styles.video}
+          <VideoView style={styles.video}
             player={player}
             allowsFullscreen
             allowsPictureInPicture
           />
         </View>
 
-        {/* === MAIN CONTENT === */}
         {!isFullScreen && (
           <>
             <View style={styles.mainInfoContainer}>
@@ -181,9 +142,10 @@ export default function CourseDetailScreen() {
             <Text style={styles.priceCurrent}>${course.price}</Text>
             <Text style={styles.priceDiscount}>${course.original_price}</Text>
           </View>
-          <Pressable style={styles.addToCartButton}>
-            <Ionicons name="cart-outline" size={20} color="#fff" style={{ marginRight: 5 }} />
-            <Text style={styles.addToCartText}>Add to cart</Text>
+          <Pressable style={styles.buyNowButton}
+            onPress={() => { navigation.navigate('Payment', { course: {...course, teacher_name: teacher?.full_name || 'undefined'} }) }}
+          >
+            <Text style={styles.buyNowText}>Mua ngay</Text>
           </Pressable>
         </View>
       )}
@@ -239,6 +201,16 @@ const styles = StyleSheet.create({
   priceContainer: { flexDirection: 'column', alignItems: 'flex-start' },
   priceCurrent: { fontSize: 22, fontWeight: 'bold', color: '#000' },
   priceDiscount: { fontSize: 14, color: '#999', textDecorationLine: 'line-through' },
-  addToCartButton: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#00bfff', paddingVertical: 12, paddingHorizontal: 20, borderRadius: 8 },
-  addToCartText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+  buyNowButton: { 
+    backgroundColor: '#4CAF50', 
+    paddingVertical: 14, 
+    paddingHorizontal: 28, 
+    borderRadius: 8,
+    elevation: 3,
+  },
+  buyNowText: { 
+    color: '#fff', 
+    fontWeight: 'bold', 
+    fontSize: 16 
+  },
 });

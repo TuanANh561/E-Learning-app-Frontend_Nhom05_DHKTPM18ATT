@@ -3,18 +3,22 @@ export type RootStackParamList = {
     Home: undefined;
     Search: undefined;
     MyCourses: undefined;
-    Profile: undefined;
     CourseDetail: { courseId: number };
     Learning: { lessonId: number; courseId: number };
     CoursesByCategory: { categoryId: number; categoryName: string };
     TeacherProfile: { teacherId: number };
+    CourseListScreen: { title: string };
+    Payment: { course: Course & { teacher_name: string } };
+    Login: undefined;
+    Register: undefined;
+    Profile: { isLoggedIn?: boolean; userId?: number };
 };
 
 export type RootTabParamList = {
-  HomeTab: undefined;
-  SearchTab: undefined;
-  MyCoursesTab: undefined;
-  ProfileTab: undefined;
+  Home: undefined;
+  Search: undefined;
+  MyCourses: undefined;
+  Profile: undefined;
 };
 
 export type User = {
@@ -105,3 +109,9 @@ export type MyCourse = {
   completed_count: number;
   progress_percent: number;
 };
+
+export type Quiz = {
+  id: number;
+  lesson_id: number;
+  title: string;
+}

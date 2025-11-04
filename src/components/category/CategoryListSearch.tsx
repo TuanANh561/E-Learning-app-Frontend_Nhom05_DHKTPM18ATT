@@ -8,36 +8,25 @@ interface CategoryListSearchProps {
     onCategoryPress: (topicName: string) => void; 
 }
 
-// Nhận categories và hàm xử lý khi nhấn
 export default function CategoryListSearch({ categories, onCategoryPress }: CategoryListSearchProps) {
-    
-    const displayedCategories = categories.slice(0, 5);
 
-    return (
-        <View>
-            <View style={styles.sectionHeader}>
-                <Text style={styles.sectionTitle}>Categories</Text>
-                <Pressable onPress={() => {}}><Text style={styles.viewMore}>View more</Text></Pressable>
-            </View>
-            
-            {displayedCategories.map((cat) => (
-                <Pressable 
-                    key={cat.id} 
-                    style={styles.categoryItem} 
-                    onPress={() => onCategoryPress(cat.name)}
-                >
-                    <Ionicons 
-                        name={cat.icon_name as any}
-                        size={24} 
-                        color="#00bfff" 
-                        style={styles.categoryIcon} 
-                    />
-                    <Text style={styles.categoryText}>{cat.name}</Text>
-                    <Ionicons name="chevron-forward-outline" size={20} color="#666" />
-                </Pressable>
-            ))}
+  const displayedCategories = categories.slice(0, 6);
+
+  return (
+    <View>
+        <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Danh mục</Text>
         </View>
-    );
+            
+        {displayedCategories.map((cat) => (
+            <Pressable key={cat.id} style={styles.categoryItem} onPress={() => onCategoryPress(cat.name)}>
+                <Ionicons name={cat.icon_name as any} size={24} color="#00bfff" style={styles.categoryIcon} />
+                <Text style={styles.categoryText}>{cat.name}</Text>
+                <Ionicons name="chevron-forward-outline" size={20} color="#666" />
+            </Pressable>
+        ))}
+    </View>
+);
 }
 
 const styles = StyleSheet.create({
@@ -51,9 +40,6 @@ const styles = StyleSheet.create({
     sectionTitle: {
         fontSize: 18,
         fontWeight: 'bold',
-    },
-    viewMore: {
-        color: '#00bfff',
     },
     categoryItem: {
         flexDirection: 'row',

@@ -1,46 +1,56 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Lesson, Section } from '../../types';
+import { Lesson } from '../../types';
+import useCourseLessons from '../../hooks/useCourseLessons';
 
-interface LessonListProps {
+interface LessonsTabProps {
   courseId: number;
-  allLessons: Lesson[];
-  allSections: Section[];
   currentLessonId: number;
   onLessonPress: (lesson: Lesson) => void;
 }
 
-const LessonsTab: React.FC<LessonListProps> = ({
-  courseId,
-  allLessons,
-  allSections,
-  currentLessonId,
-  onLessonPress,
-}) => {
+export default function LessonsTab({ courseId, currentLessonId, onLessonPress,}: LessonsTabProps) {
+  const { sections, loading } = useCourseLessons(courseId);
   const [openSections, setOpenSections] = useState<Record<number, boolean>>({});
 
-  const sectionsWithLessons = React.useMemo(() => {
-    const courseSections = allSections.filter(s => s.course_id === courseId);
-    return courseSections.map(section => ({
-      ...section,
-      lessons: allLessons.filter(l => l.section_id === section.id),
-    }));
-  }, [courseId, allSections, allLessons]);
-
   useEffect(() => {
-    if (sectionsWithLessons.length > 0) {
-      setOpenSections({ [9]: true });
+    if (sections.length > 0 && currentLessonId) {
+      const sectionWithCurrent = sections.find(section =>
+        section.lessons.some(lesson => lesson.id === currentLessonId)
+      );
+
+      if (sectionWithCurrent) {
+        setOpenSections({ [sectionWithCurrent.id]: true });
+      }
     }
-  }, [sectionsWithLessons]);
+  }, [sections, currentLessonId]);
 
   const toggleSection = (sectionId: number) => {
-    setOpenSections(prev => ({ ...prev, [sectionId]: !prev[sectionId] }));
+    setOpenSections(prev => ({...prev,[sectionId]: !prev[sectionId],}));
   };
+
+  const handleLessonPress = (lesson: Lesson) => {
+    if (lesson.is_free) {
+      onLessonPress(lesson);
+    } else {
+      Alert.alert( 'Khóa học bị khóa', 'Bài học này chỉ dành cho học viên đã mua khóa học!',
+        [{ text: 'OK', style: 'default' }]
+      );
+    }
+  };
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#00bfff" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.tabContent}>
-      {sectionsWithLessons.map(section => {
+      {sections.map(section => {
         const isOpen = !!openSections[section.id];
         return (
           <View key={section.id}>
@@ -50,44 +60,30 @@ const LessonsTab: React.FC<LessonListProps> = ({
             </Pressable>
 
             {isOpen &&
-              section.lessons.map((lesson, idx) => (
-                <Pressable
-                  key={lesson.id}
-                  style={[
-                    styles.lessonItem,
-                    lesson.id === currentLessonId && { backgroundColor: '#e6f7ff' },
-                  ]}
-                  onPress={() => onLessonPress(lesson)}
-                >
-                  <Text style={styles.lessonNumber}>
-                    {(idx + 1).toString().padStart(2, '0')}
-                  </Text>
-                  <View style={styles.lessonInfo}>
-                    <Text style={styles.lessonTitle}>{lesson.title}</Text>
-                    <Text style={styles.duration}>{lesson.duration_mins.toFixed(1)} phút</Text>
-                  </View>
-                  <Ionicons
-                    name={
-                      lesson.id === currentLessonId
-                        ? 'play-circle'
-                        : lesson.is_free
-                        ? 'play-circle-outline'
-                        : 'lock-closed-outline'
-                    }
-                    size={20}
-                    color={lesson.id === currentLessonId ? '#00bfff' : lesson.is_free ? '#00bfff' : '#999'}
-                  />
-                  {lesson.id === 9 && (
-                    <Ionicons name="checkmark-circle" size={20} color="#00bfff" style={{ marginLeft: 8 }} />
-                  )}
-                </Pressable>
-              ))}
+              section.lessons.map((lesson, idx) => {
+                const isActive = lesson.id === currentLessonId;
+                return (
+                  <Pressable key={lesson.id} style={[styles.lessonItem, isActive && { backgroundColor: '#e6f7ff' }]}
+                    onPress={() => handleLessonPress(lesson)}
+                  >
+                    <Text style={styles.lessonNumber}> {(idx + 1).toString().padStart(2, '0')}</Text>
+                    <View style={styles.lessonInfo}>
+                      <Text style={styles.lessonTitle}>{lesson.title}</Text>
+                      <Text style={styles.duration}> {lesson.duration_mins.toFixed(1)} phút</Text>
+                    </View>
+                    <Ionicons name={ isActive ? 'play-circle' : lesson.is_free ? 'play-circle-outline' : 'lock-closed-outline'}
+                      size={20}
+                      color={ isActive ? '#00bfff' : lesson.is_free ? '#00bfff' : '#999'}
+                    />
+                  </Pressable>
+                );
+              })}
           </View>
         );
       })}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   tabContent: { backgroundColor: '#fff' },
@@ -112,6 +108,9 @@ const styles = StyleSheet.create({
   lessonInfo: { flex: 1, marginLeft: 12 },
   lessonTitle: { fontSize: 14, color: '#333' },
   duration: { fontSize: 12, color: '#999', marginTop: 2 },
-});
-
-export default LessonsTab;
+  loadingContainer: {
+    paddingVertical: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+})

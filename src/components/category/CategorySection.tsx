@@ -33,16 +33,16 @@ export default function CategorySection({ categories }: CategorySectionProps) {
   return (
     <View style={styles.section}>
       <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>Categories</Text>
+        <Text style={styles.sectionTitle}>Danh mục</Text>
         
         {categories.length > MAX_DISPLAY_COUNT && !showAllCategories && (
-            <Pressable onPress={handleViewMoreCategories}>
-                <Text style={styles.viewMore}>View more</Text>
+            <Pressable onPress={handleViewMoreCategories} style={styles.moreBtn}>
+                <Text style={styles.moreText}>Xem thêm</Text>
             </Pressable>
         )}
         {categories.length > MAX_DISPLAY_COUNT && showAllCategories && (
-            <Pressable onPress={handleShowLessCategories}>
-                <Text style={styles.viewMore}>Show less</Text>
+            <Pressable onPress={handleShowLessCategories} style={styles.moreBtn}>
+                <Text style={styles.moreText}>Thu lại</Text>
             </Pressable>
         )}
       </View>
@@ -64,6 +64,21 @@ const styles = StyleSheet.create({
   section: { marginHorizontal: 15, marginVertical: 10 },
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
   sectionTitle: { fontSize: 18, fontWeight: 'bold', color: '#000' },
-  viewMore: { fontSize: 14, color: '#00bfff' },
+  moreBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f0f8ff',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#00bfff',
+  },
+  moreText: {
+    fontSize: 13,
+    color: '#00bfff',
+    fontWeight: '600',
+    marginRight: 4,
+  },
   categoryList: { paddingRight: 5, justifyContent: 'space-between' },
 });

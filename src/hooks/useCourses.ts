@@ -5,6 +5,9 @@ import { API_URL } from './api';
 
 export default function useCourses() {
 	const [courses, setCourses] = useState<Course[]>([]);
+	const [popular, setPopular] = useState<Course[]>([]);
+ 	const [recommended, setRecommended] = useState<Course[]>([]);
+  	const [inspiring, setInspiring] = useState<Course[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
 
@@ -13,7 +16,13 @@ export default function useCourses() {
 		setError(null);
 		try {
 			const res = await axios.get(API_URL.courses);
+			const popularRes = await axios.get(API_URL.popularCourses);
+			const recommendedRes = await axios.get(API_URL.recommendedCourses);
+			const inspiringRes = await axios.get(API_URL.inspiringCourses);
 			setCourses(res.data);
+			setPopular(popularRes.data);
+			setRecommended(recommendedRes.data);
+			setInspiring(inspiringRes.data);
 		} catch (err: any) {
 			setError(err.message || 'Lỗi khi tải khóa học');
 		} finally {
@@ -75,5 +84,5 @@ export default function useCourses() {
 		fetchData();
 	}, [fetchData]);
 
-	return { courses, loading, error, refetch: fetchData, fetchCourseById, fetchByCategoryId, fetchByTeacherId };
+	return { courses, popular, recommended, inspiring, loading, error, refetch: fetchData, fetchCourseById, fetchByCategoryId, fetchByTeacherId };
 }

@@ -12,7 +12,7 @@ interface PopularCoursesSectionProps {
 export default function PopularCoursesSection({ courses, onViewMore }: PopularCoursesSectionProps) {
   const { users } = useUsers();
 
-  const MAX_DISPLAY_COUNT = 4;
+  const MAX_DISPLAY_COUNT = 5;
 
   const displayedCourses = useMemo(() => {
     return courses.slice(0, MAX_DISPLAY_COUNT);
@@ -25,9 +25,9 @@ export default function PopularCoursesSection({ courses, onViewMore }: PopularCo
   return (
     <View style={styles.section}>
       <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>Popular courses</Text>
-        <Pressable onPress={onViewMore}>
-          <Text style={styles.viewMore}>View more</Text>
+        <Text style={styles.sectionTitle}>Khóa học phổ biến</Text>
+        <Pressable onPress={onViewMore} style={styles.moreBtn}>
+          <Text style={styles.moreText}>Xem thêm</Text>
         </Pressable>
       </View>
 
@@ -47,6 +47,21 @@ const styles = StyleSheet.create({
   section: { marginHorizontal: 15, marginVertical: 10 },
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
   sectionTitle: { fontSize: 18, fontWeight: 'bold', color: '#000' },
-  viewMore: { fontSize: 14, color: '#00bfff' },
+  moreBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f0f8ff',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#00bfff',
+  },
+  moreText: {
+    fontSize: 13,
+    color: '#00bfff',
+    fontWeight: '600',
+    marginRight: 4,
+  },
   horizontalCourseList: { paddingRight: 20 },
 });

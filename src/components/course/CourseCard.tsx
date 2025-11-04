@@ -11,7 +11,7 @@ type CourseCardProps = {
 
 export default function CourseCard({ course }: CourseCardProps) {
   const { users } = useUsers();
-  const teacher = useMemo(() => users.find((u) => u.id === course.teacher_id && u.role === 'TEACHER'), [course.teacher_id, users]);
+  const teacher = useMemo(() => users.find((u) => Number(u.id) === course.teacher_id && u.role === 'TEACHER'), [course.teacher_id, users]);
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'CourseDetail'>>();
   const handlePress = useCallback(() => {
@@ -27,7 +27,7 @@ export default function CourseCard({ course }: CourseCardProps) {
         <Text style={styles.price}>${course.price}</Text>
         <View style={styles.rating}>
           <Text style={styles.ratingText}>★ {course.rating_avg.toFixed(1)} ({course.rating_count})</Text>
-          <Text style={styles.lessons}>• {course.lesson_count} lessons</Text>
+          <Text style={styles.lessons}>• {course.lesson_count} bài học</Text>
         </View>
       </View>
     </Pressable>

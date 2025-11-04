@@ -4,7 +4,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "expo start",
-    "server": "npx json-server --watch db.json --host 192.168.1.4 --port 3000",
+    "server": "npx json-server --watch db.json --host 172.20.10.5 --port 3000",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
@@ -20,7 +20,7 @@
     "expo-audio": "~1.0.14",
     "expo-screen-orientation": "~9.0.7",
     "expo-status-bar": "~3.0.8",
-    "expo-video": "~3.0.12",
+    "expo-video": "^3.0.12",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-native": "0.81.5",

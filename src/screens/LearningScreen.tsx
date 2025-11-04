@@ -1,46 +1,32 @@
-// src/screens/LearningScreen.tsx
 import React, { useState, useEffect, useCallback } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  ActivityIndicator,
-  Pressable,
-} from 'react-native';
+import { View, Text,StyleSheet, ScrollView, ActivityIndicator, Pressable,} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRoute, useNavigation } from '@react-navigation/native';
+import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import { VideoView, useVideoPlayer } from 'expo-video'; // ✅ Dùng expo-video mới
-
+import { VideoView, useVideoPlayer } from 'expo-video';
 import useCourses from '../hooks/useCourses';
 import useLessons from '../hooks/useLessons';
 import useSections from '../hooks/useSections';
-
 import { RootStackParamList, Lesson, Course } from '../types';
 import { StackNavigationProp } from '@react-navigation/stack';
-
-// Import 2 tab
 import LessonsTab from '../components/learning/LessonsTab';
 import QATab from '../components/learning/QATab';
 
-type LearningNavigationProp = StackNavigationProp<RootStackParamList, 'Learning'>;
-
 export default function LearningScreen() {
-  const route = useRoute<any>();
-  const navigation = useNavigation<LearningNavigationProp>();
-  const { lessonId, courseId } = route.params as { lessonId: number; courseId: number };
+  const route = useRoute<RouteProp<RootStackParamList, 'Learning'>>();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'Learning'>>();
+  const lessonId = route.params.lessonId;
+  const courseId = route.params.courseId;
 
   const [activeTab, setActiveTab] = useState<'lessons' | 'qa'>('lessons');
   const [currentLessonId, setCurrentLessonId] = useState(lessonId);
   const [currentLesson, setCurrentLesson] = useState<Lesson | null>(null);
   const [currentCourse, setCurrentCourse] = useState<Course | null>(null);
 
-  const { fetchLessonById, lessons, loading: loadingLessons } = useLessons();
+  const { fetchLessonById, loading: loadingLessons } = useLessons();
   const { fetchCourseById, loading: loadingCourses } = useCourses();
-  const { sections, loading: loadingSections } = useSections();
+  const { loading: loadingSections } = useSections();
 
-  // 🔹 Fetch dữ liệu ban đầu
   useEffect(() => {
     const loadData = async () => {
       const [lesson, course] = await Promise.all([
@@ -54,7 +40,6 @@ export default function LearningScreen() {
     loadData();
   }, [lessonId, courseId]);
 
-  // ✅ Player (thay vì dùng <Video/> cũ)
   const player = useVideoPlayer(currentLesson?.video_url || '', player => {
     player.pause();
   });
@@ -74,8 +59,6 @@ export default function LearningScreen() {
         return (
           <LessonsTab
             courseId={courseId}
-            allLessons={lessons}
-            allSections={sections}
             currentLessonId={currentLessonId}
             onLessonPress={handleLessonPress}
           />
@@ -98,7 +81,6 @@ export default function LearningScreen() {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <ScrollView>
-        {/* Header */}
         <View style={styles.header}>
           <Ionicons name="arrow-back" size={24} color="#333" onPress={() => navigation.goBack()} />
           <Text style={styles.headerTitle}>Learning Lessons</Text>
@@ -108,7 +90,6 @@ export default function LearningScreen() {
           </View>
         </View>
 
-        {/* Video player */}
         <View style={styles.videoContainer}>
           <VideoView
             player={player}
@@ -119,7 +100,6 @@ export default function LearningScreen() {
           />
         </View>
 
-        {/* Course Info */}
         <View style={styles.courseInfoContainer}>
           <Text style={styles.courseMainTitle}>
             {currentCourse.title}: {currentLesson.title}
@@ -132,14 +112,9 @@ export default function LearningScreen() {
           </View>
         </View>
 
-        {/* Tab Bar */}
         <View style={styles.tabBarContainer}>
           {(['lessons', 'qa'] as const).map(tab => (
-            <Pressable
-              key={tab}
-              style={[styles.tabItem, activeTab === tab && styles.activeTab]}
-              onPress={() => setActiveTab(tab)}
-            >
+            <Pressable key={tab} style={[styles.tabItem, activeTab === tab && styles.activeTab]} onPress={() => setActiveTab(tab)}>
               <Text style={[styles.tabLabel, activeTab === tab && styles.activeTabLabel]}>
                 {tab.toUpperCase()}
               </Text>
@@ -147,14 +122,12 @@ export default function LearningScreen() {
           ))}
         </View>
 
-        {/* Tab Content */}
         {renderTabContent()}
       </ScrollView>
     </SafeAreaView>
   );
 }
 
-// === STYLES ===
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fff' },
   loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },

@@ -15,10 +15,10 @@
   "categories": [
     { "id": 1, "name": "Lập trình", "image_Url": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761539286/3121615_kuetvc.png", "icon_name": "code-slash-outline" },
     { "id": 2, "name": "Thiết kế", "image_Url": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761539624/design-thinking_rx6qlo.png", "icon_name": "color-palette-outline" },
-    { "id": 3, "name": "Business", "image_Url": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761539623/investment_ec28iz.png", "icon_name": "trending-up-outline" },
-    { "id": 4, "name": "Writing", "image_Url": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761539622/1055688_uec36y.png", "icon_name": "create-outline" },
-    { "id": 5, "name": "Movie", "image_Url": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761539621/clapperboard_y3cm1q.png", "icon_name": "videocam-outline" },
-    { "id": 6, "name": "Language", "image_Url": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761538850/languages_xzinde.png", "icon_name": "language-outline" },
+    { "id": 3, "name": "Kinh doanh", "image_Url": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761539623/investment_ec28iz.png", "icon_name": "trending-up-outline" },
+    { "id": 4, "name": "Viết", "image_Url": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761539622/1055688_uec36y.png", "icon_name": "create-outline" },
+    { "id": 5, "name": "Phim", "image_Url": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761539621/clapperboard_y3cm1q.png", "icon_name": "videocam-outline" },
+    { "id": 6, "name": "Ngôn ngữ", "image_Url": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761538850/languages_xzinde.png", "icon_name": "language-outline" },
     { "id": 7, "name": "Category7", "image_Url": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761539772/app_lhykbl.png", "icon_name": "list-outline" },
     { "id": 8, "name": "Category8", "image_Url": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761539772/app_lhykbl.png", "icon_name": "list-outline" }
   ],
@@ -124,7 +124,7 @@
   ],
   "lessons": [
     { "id": 1, "section_id": 1, "title": "Cài đặt môi trường React Native", "duration_mins": 5.0, "video_url": "https://res.cloudinary.com/dwzjxsdli/video/upload/v1761573788/React_Beginner_m5v2jh.mp4", "is_free": true },
-    { "id": 2, "section_id": 2, "title": "Giới thiệu về Components", "duration_mins": 4.0, "video_url": "url_video_2", "is_free": false },
+    { "id": 2, "section_id": 2, "title": "Giới thiệu về Components", "duration_mins": 4.0, "video_url": "url_video_2", "is_free": true },
     { "id": 3, "section_id": 3, "title": "Giới thiệu cú pháp PHP", "duration_mins": 6.0, "video_url": "url_video_3", "is_free": true },
     { "id": 4, "section_id": 4, "title": "Kết nối MySQL", "duration_mins": 8.0, "video_url": "url_video_4", "is_free": false },
     { "id": 5, "section_id": 5, "title": "Biến và Kiểu dữ liệu Python", "duration_mins": 4.5, "video_url": "url_video_5", "is_free": true },
@@ -143,9 +143,27 @@
     { "id": 18, "section_id": 16, "title": "Làm Mockup 3D", "duration_mins": 11.0, "video_url": "url_video_18", "is_free": false }
   ],
   "reviews": [
-    { "id": 1, "course_id": 5, "user_id": 9, "rating": 5, "comment": "Nostrud excepteur magna id est quis in aliqua consequat.", "date": "A day ago" },
-    { "id": 2, "course_id": 5, "user_id": 10, "rating": 3, "comment": "Deserunt minim incididunt cillum nostrud do voluptitate.", "date": "A day ago" },
-    { "id": 3, "course_id": 5, "user_id": 11, "rating": 4, "comment": "Magna id sint irure in cillum esse nisi dolor laboris ullamco. Consectetur proident ...", "date": "5 days ago" }
+    { "id": 1, "course_id": 5, "user_id": 9, "rating": 5, "comment": "Khóa học rất chi tiết, giảng viên dễ hiểu.", "date": "1 day ago" },
+    { "id": 2, "course_id": 5, "user_id": 10, "rating": 3, "comment": "Một số phần khá khô khan nhưng tổng thể ổn.", "date": "2 days ago" },
+    { "id": 3, "course_id": 5, "user_id": 11, "rating": 4, "comment": "Bài tập thực hành hữu ích và thực tế.", "date": "5 days ago" },
+
+    { "id": 4, "course_id": 1, "user_id": 9, "rating": 5, "comment": "Rất tuyệt cho người mới bắt đầu React Native!", "date": "3 days ago" },
+    { "id": 5, "course_id": 1, "user_id": 10, "rating": 4, "comment": "Giảng viên có tâm, dễ hiểu nhưng hơi nhanh ở vài đoạn.", "date": "4 days ago" },
+    { "id": 6, "course_id": 1, "user_id": 11, "rating": 5, "comment": "Cực kỳ dễ theo dõi, có ví dụ minh họa cụ thể.", "date": "1 week ago" },
+
+    { "id": 7, "course_id": 2, "user_id": 9, "rating": 4, "comment": "Khóa PHP này giúp tôi hiểu rõ hơn backend cơ bản.", "date": "2 weeks ago" },
+    { "id": 8, "course_id": 2, "user_id": 10, "rating": 5, "comment": "Nội dung phong phú và cập nhật mới nhất.", "date": "1 week ago" },
+    { "id": 9, "course_id": 2, "user_id": 11, "rating": 4, "comment": "Bài giảng rõ ràng, dễ hiểu.", "date": "6 days ago" },
+
+    { "id": 10, "course_id": 3, "user_id": 9, "rating": 5, "comment": "Python được giải thích cực kỳ dễ hiểu!", "date": "3 days ago" },
+    { "id": 11, "course_id": 3, "user_id": 10, "rating": 4, "comment": "Thầy giảng dễ hiểu, có thêm phần bài tập.", "date": "4 days ago" },
+
+    { "id": 12, "course_id": 4, "user_id": 9, "rating": 4, "comment": "Phần Figma khá thú vị và dễ áp dụng.", "date": "1 day ago" },
+    { "id": 13, "course_id": 4, "user_id": 10, "rating": 5, "comment": "Khóa học cực kỳ hữu ích cho dân thiết kế!", "date": "3 days ago" },
+
+    { "id": 14, "course_id": 6, "user_id": 11, "rating": 5, "comment": "Bài giảng nghệ thuật đỉnh cao, minh họa sinh động.", "date": "2 days ago" },
+    { "id": 15, "course_id": 7, "user_id": 10, "rating": 4, "comment": "Ý tưởng trang trí độc đáo và dễ thực hiện.", "date": "1 week ago" },
+    { "id": 16, "course_id": 8, "user_id": 9, "rating": 5, "comment": "Khóa học bao bì sáng tạo và thực tế!", "date": "4 days ago" }
   ],
   "favorites": [
     { "id": 1, "user_id": 1, "course_id": 2 },
@@ -232,53 +250,257 @@
     { "id": 11, "enrollment_id": 5, "lesson_id": 17, "is_completed": true, "updated_at": "2025-09-06T12:00:00Z" },
     { "id": 12, "enrollment_id": 5, "lesson_id": 18, "is_completed": false, "updated_at": "2025-09-06T12:30:00Z" }
   ],
-"my-courses": [
-  {
-    "user_id": 1,
-    "id": 5,
-    "title": "UX Research For...",
-    "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544370/Gemini_Generated_Image_yf0chyf0chyf0chy_4_v5uocw.png",
-    "lesson_count": 4,
-    "completed_count": 3,
-    "progress_percent": 0.75
-  },
-  {
-    "user_id": 1,
-    "id": 4,
-    "title": "Website Design",
-    "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544376/Gemini_Generated_Image_yf0chyf0chyf0chy_3_bezddq.png",
-    "lesson_count": 2,
-    "completed_count": 2,
-    "progress_percent": 1
-  },
-  {
-    "user_id": 1,
-    "id": 6,
-    "title": "Digital Portrait",
-    "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544373/Gemini_Generated_Image_3s76wn3s76wn3s76_w1sain.png",
-    "lesson_count": 2,
-    "completed_count": 2,
-    "progress_percent": 1
-  },
-  {
-    "user_id": 1,
-    "id": 7,
-    "title": "Workspace Decor",
-    "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544373/Gemini_Generated_Image_3s76wn3s76wn3s76_1_xfg3cg.png",
-    "lesson_count": 2,
-    "completed_count": 1,
-    "progress_percent": 0.5
-  },
-  {
-    "user_id": 1,
-    "id": 8,
-    "title": "Packaging Design",
-    "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544372/Gemini_Generated_Image_3s76wn3s76wn3s76_2_innqrz.png",
-    "lesson_count": 2,
-    "completed_count": 1,
-    "progress_percent": 0.5
-  }
-],
+  "my-courses": [
+    {
+      "user_id": 1,
+      "id": 5,
+      "title": "UX Research For...",
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544370/Gemini_Generated_Image_yf0chyf0chyf0chy_4_v5uocw.png",
+      "lesson_count": 4,
+      "completed_count": 3,
+      "progress_percent": 0.75
+    },
+    {
+      "user_id": 1,
+      "id": 4,
+      "title": "Website Design",
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544376/Gemini_Generated_Image_yf0chyf0chyf0chy_3_bezddq.png",
+      "lesson_count": 2,
+      "completed_count": 2,
+      "progress_percent": 1
+    },
+    {
+      "user_id": 1,
+      "id": 6,
+      "title": "Digital Portrait",
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544373/Gemini_Generated_Image_3s76wn3s76wn3s76_w1sain.png",
+      "lesson_count": 2,
+      "completed_count": 2,
+      "progress_percent": 1
+    },
+    {
+      "user_id": 1,
+      "id": 7,
+      "title": "Workspace Decor",
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544373/Gemini_Generated_Image_3s76wn3s76wn3s76_1_xfg3cg.png",
+      "lesson_count": 2,
+      "completed_count": 1,
+      "progress_percent": 0.5
+    },
+    {
+      "user_id": 1,
+      "id": 8,
+      "title": "Packaging Design",
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544372/Gemini_Generated_Image_3s76wn3s76wn3s76_2_innqrz.png",
+      "lesson_count": 2,
+      "completed_count": 1,
+      "progress_percent": 0.5
+    }
+  ],
+  "popularCourses":[
+    {
+      "id": 1,
+      "title": "React Native cho người mới",
+      "category_id": 1, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544374/Gemini_Generated_Image_yf0chyf0chyf0chy_dqfwph.png",
+      "price": 0, "original_price": 0, "rating_avg": 4.6, "rating_count": 550, "lesson_count": 15,
+      "video_url_preview": "https://res.cloudinary.com/dwzjxsdli/video/upload/v1761573788/React_Beginner_m5v2jh.mp4",
+      "description": "Khóa học này giới thiệu những nguyên tắc cơ bản và cấu trúc cốt lõi của React Native, giúp người mới bắt đầu xây dựng ứng dụng di động đa nền tảng một cách nhanh chóng. Bạn sẽ nắm vững các components cơ bản, luồng dữ liệu, và cách sử dụng Hooks hiệu quả.",
+      "benefits": ["Source code miễn phí", "Cộng đồng hỗ trợ", "Phù hợp cho người mới"]
+    },
+    {
+      "id": 2,
+      "title": "PHP in One Click",
+      "category_id": 1, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544371/Gemini_Generated_Image_yf0chyf0chyf0chy_1_wtmrau.png",
+      "price": 59, "original_price": 75, "rating_avg": 4.5, "rating_count": 1233, "lesson_count": 18,
+      "video_url_preview": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "description": "Nắm vững PHP và MySQL để xây dựng các ứng dụng web động mạnh mẽ. Khóa học này đi sâu vào cú pháp PHP, quản lý phiên, bảo mật và kết nối database.",
+      "benefits": ["Bài tập thực hành", "Video chất lượng cao", "Xây dựng dự án hoàn chỉnh"]
+    },
+    {
+      "id": 3,
+      "title": "Python Introductory",
+      "category_id": 1, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544375/Gemini_Generated_Image_yf0chyf0chyf0chy_2_h9wxs1.png",
+      "price": 39, "original_price": 50, "rating_avg": 4.8, "rating_count": 287, "lesson_count": 12,
+      "video_url_preview": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "description": "Khóa học nhập môn Python tập trung vào cú pháp cơ bản, cấu trúc dữ liệu và logic điều khiển. Đây là bước đệm hoàn hảo để bạn chuyển sang lập trình data science hoặc web.",
+      "benefits": ["Dễ hiểu", "Ứng dụng ngay", "Bài giảng ngắn gọn"]
+    },
+    {
+      "id": 4,
+      "title": "Website Design",
+      "description": "Thiết kế website chuyên nghiệp",
+      "category_id": 2, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544376/Gemini_Generated_Image_yf0chyf0chyf0chy_3_bezddq.png",
+      "price": 49, "original_price": 60, "rating_avg": 4.5, "rating_count": 1233, "lesson_count": 9,
+      "video_url_preview": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "benefits": ["Project thực tế", "Công cụ thiết kế", "Mẫu thiết kế miễn phí"]
+    },
+    {
+      "id": 5,
+      "title": "UX Research For...",
+      "description": "Khám phá các phương pháp nghiên cứu người dùng sâu sắc, từ phỏng vấn chuyên sâu, khảo sát định lượng đến phân tích hành vi. Nâng cao kỹ năng ra quyết định dựa trên dữ liệu UX.",
+      "category_id": 2, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544370/Gemini_Generated_Image_yf0chyf0chyf0chy_4_v5uocw.png",
+      "price": 29, "original_price": 35, "rating_avg": 4.5, "rating_count": 1782, "lesson_count": 12,
+      "video_url_preview": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "benefits": ["Case studies", "Phương pháp luận", "Tài liệu nghiên cứu"]
+    },
+    {
+      "id": 6,
+      "title": "Digital Portrait",
+      "description": "Vẽ chân dung số",
+      "category_id": 2, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544373/Gemini_Generated_Image_3s76wn3s76wn3s76_w1sain.png",
+      "price": 67, "original_price": 80, "rating_avg": 4.7, "rating_count": 857, "lesson_count": 12,
+      "video_url_preview": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "benefits": ["Kỹ thuật tô màu", "Cọ vẽ chuyên dụng", "Lớp học thực hành"]
+    },
+    {
+      "id": 7,
+      "title": "Workspace Decor",
+      "description": "Trang trí không gian làm việc",
+      "category_id": 2, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544373/Gemini_Generated_Image_3s76wn3s76wn3s76_1_xfg3cg.png",
+      "price": 19, "original_price": 25, "rating_avg": 4.3, "rating_count": 515, "lesson_count": 17,
+      "video_url_preview": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "benefits": ["Mẹo trang trí", "Tận dụng không gian", "Danh sách mua sắm"]
+    },
+    {
+      "id": 8,
+      "title": "Packaging Design",
+      "description": "Thiết kế bao bì sáng tạo",
+      "category_id": 2, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544372/Gemini_Generated_Image_3s76wn3s76wn3s76_2_innqrz.png",
+      "price": 89, "original_price": 100, "rating_avg": 4.8, "rating_count": 733, "lesson_count": 14,
+      "video_url_preview": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "benefits": ["Nguyên tắc thiết kế", "Thử nghiệm vật liệu", "Hướng dẫn in ấn"]
+    }
+  ],
+  "recommendedCourses":[
+    {
+      "id": 4,
+      "title": "Website Design",
+      "description": "Thiết kế website chuyên nghiệp",
+      "category_id": 2, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544376/Gemini_Generated_Image_yf0chyf0chyf0chy_3_bezddq.png",
+      "price": 49, "original_price": 60, "rating_avg": 4.5, "rating_count": 1233, "lesson_count": 9,
+      "video_url_preview": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "benefits": ["Project thực tế", "Công cụ thiết kế", "Mẫu thiết kế miễn phí"]
+    },
+    {
+      "id": 5,
+      "title": "UX Research For...",
+      "description": "Khám phá các phương pháp nghiên cứu người dùng sâu sắc, từ phỏng vấn chuyên sâu, khảo sát định lượng đến phân tích hành vi. Nâng cao kỹ năng ra quyết định dựa trên dữ liệu UX.",
+      "category_id": 2, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544370/Gemini_Generated_Image_yf0chyf0chyf0chy_4_v5uocw.png",
+      "price": 29, "original_price": 35, "rating_avg": 4.5, "rating_count": 1782, "lesson_count": 12,
+      "video_url_preview": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "benefits": ["Case studies", "Phương pháp luận", "Tài liệu nghiên cứu"]
+    },
+    {
+      "id": 6,
+      "title": "Digital Portrait",
+      "description": "Vẽ chân dung số",
+      "category_id": 2, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544373/Gemini_Generated_Image_3s76wn3s76wn3s76_w1sain.png",
+      "price": 67, "original_price": 80, "rating_avg": 4.7, "rating_count": 857, "lesson_count": 12,
+      "video_url_preview": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "benefits": ["Kỹ thuật tô màu", "Cọ vẽ chuyên dụng", "Lớp học thực hành"]
+    },
+    {
+      "id": 7,
+      "title": "Workspace Decor",
+      "description": "Trang trí không gian làm việc",
+      "category_id": 2, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544373/Gemini_Generated_Image_3s76wn3s76wn3s76_1_xfg3cg.png",
+      "price": 19, "original_price": 25, "rating_avg": 4.3, "rating_count": 515, "lesson_count": 17,
+      "video_url_preview": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "benefits": ["Mẹo trang trí", "Tận dụng không gian", "Danh sách mua sắm"]
+    },
+    {
+      "id": 8,
+      "title": "Packaging Design",
+      "description": "Thiết kế bao bì sáng tạo",
+      "category_id": 2, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544372/Gemini_Generated_Image_3s76wn3s76wn3s76_2_innqrz.png",
+      "price": 89, "original_price": 100, "rating_avg": 4.8, "rating_count": 733, "lesson_count": 14,
+      "video_url_preview": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "benefits": ["Nguyên tắc thiết kế", "Thử nghiệm vật liệu", "Hướng dẫn in ấn"]
+    }
+  ],
+  "inspiringCourses":[
+    {
+      "id": 2,
+      "title": "PHP in One Click",
+      "category_id": 1, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544371/Gemini_Generated_Image_yf0chyf0chyf0chy_1_wtmrau.png",
+      "price": 59, "original_price": 75, "rating_avg": 4.5, "rating_count": 1233, "lesson_count": 18,
+      "video_url_preview": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "description": "Nắm vững PHP và MySQL để xây dựng các ứng dụng web động mạnh mẽ. Khóa học này đi sâu vào cú pháp PHP, quản lý phiên, bảo mật và kết nối database.",
+      "benefits": ["Bài tập thực hành", "Video chất lượng cao", "Xây dựng dự án hoàn chỉnh"]
+    },
+    {
+      "id": 3,
+      "title": "Python Introductory",
+      "category_id": 1, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544375/Gemini_Generated_Image_yf0chyf0chyf0chy_2_h9wxs1.png",
+      "price": 39, "original_price": 50, "rating_avg": 4.8, "rating_count": 287, "lesson_count": 12,
+      "video_url_preview": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "description": "Khóa học nhập môn Python tập trung vào cú pháp cơ bản, cấu trúc dữ liệu và logic điều khiển. Đây là bước đệm hoàn hảo để bạn chuyển sang lập trình data science hoặc web.",
+      "benefits": ["Dễ hiểu", "Ứng dụng ngay", "Bài giảng ngắn gọn"]
+    },
+    {
+      "id": 4,
+      "title": "Website Design",
+      "description": "Thiết kế website chuyên nghiệp",
+      "category_id": 2, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544376/Gemini_Generated_Image_yf0chyf0chyf0chy_3_bezddq.png",
+      "price": 49, "original_price": 60, "rating_avg": 4.5, "rating_count": 1233, "lesson_count": 9,
+      "video_url_preview": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "benefits": ["Project thực tế", "Công cụ thiết kế", "Mẫu thiết kế miễn phí"]
+    },
+    {
+      "id": 5,
+      "title": "UX Research For...",
+      "description": "Khám phá các phương pháp nghiên cứu người dùng sâu sắc, từ phỏng vấn chuyên sâu, khảo sát định lượng đến phân tích hành vi. Nâng cao kỹ năng ra quyết định dựa trên dữ liệu UX.",
+      "category_id": 2, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544370/Gemini_Generated_Image_yf0chyf0chyf0chy_4_v5uocw.png",
+      "price": 29, "original_price": 35, "rating_avg": 4.5, "rating_count": 1782, "lesson_count": 12,
+      "video_url_preview": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "benefits": ["Case studies", "Phương pháp luận", "Tài liệu nghiên cứu"]
+    },
+    {
+      "id": 7,
+      "title": "Workspace Decor",
+      "description": "Trang trí không gian làm việc",
+      "category_id": 2, "teacher_id": 2,
+      "thumbnail": "https://res.cloudinary.com/dwzjxsdli/image/upload/v1761544373/Gemini_Generated_Image_3s76wn3s76wn3s76_1_xfg3cg.png",
+      "price": 19, "original_price": 25, "rating_avg": 4.3, "rating_count": 515, "lesson_count": 17,
+      "video_url_preview": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "benefits": ["Mẹo trang trí", "Tận dụng không gian", "Danh sách mua sắm"]
+    }
+  ],
+  "topTeachers":[
+    { "id": 2, "username": "teacher01", "full_name": "Trần Thị B", "email": "b@gmail.com", "password": "teacherpass", "role": "TEACHER", "avatar_url": "https://images.unsplash.com/photo-1544005313-94ddf0286df2" },
+    { "id": 4, "username": "teacher02", "full_name": "Lê Văn C", "email": "c@gmail.com", "password": "teacherpass", "role": "TEACHER", "avatar_url": "https://images.unsplash.com/photo-1502764613149-7f1d229e230f" },
+    { "id": 6, "username": "teacher04", "full_name": "Ngô Văn E", "email": "e@gmail.com", "password": "teacherpass", "role": "TEACHER", "avatar_url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb" },
+    { "id": 7, "username": "teacher05", "full_name": "Đỗ Thị F", "email": "f@gmail.com", "password": "teacherpass", "role": "TEACHER", "avatar_url": "https://images.unsplash.com/photo-1552058544-f2b08422138a" },
+    { "id": 8, "username": "teacher06", "full_name": "Vũ Văn G", "email": "g@gmail.com", "password": "teacherpass", "role": "TEACHER", "avatar_url": "https://images.unsplash.com/photo-1552058544-f2b08422138a" }
+  ],
+  "quizzes": [
+    { "id": 1, "lesson_id": 3, "title": "Quiz: Ôn tập bài 3" }
+  ],
+  "questions": [
+    { "id": 1, "quiz_id": 1, "question_text": "React là gì?", "question_type": "MULTIPLE_CHOICE" }
+  ],
+  "answers": [
+    { "id": 1, "question_id": 1, "answer_text": "Thư viện JavaScript", "is_correct": true },
+    { "id": 2, "question_id": 1, "answer_text": "Ngôn ngữ lập trình", "is_correct": false }
+  ],
+
   
   "banner_image_url": "https://images.unsplash.com/photo-1627958564883-7e8c07e0b5d0"
 }

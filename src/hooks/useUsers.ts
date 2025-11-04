@@ -5,6 +5,7 @@ import { API_URL } from './api';
 
 export default function useUsers() {
 	const [users, setUsers] = useState<User[]>([]);
+	const [topTeachers, setTopTeachers] = useState<User[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
@@ -12,8 +13,12 @@ export default function useUsers() {
 		setLoading(true);
 		setError(null);
 		try {
-			const res = await axios.get(API_URL.users);
-			setUsers(res.data);
+			const [resUsers, resTopTeachers] = await Promise.all([
+				axios.get(API_URL.users),
+				axios.get(API_URL.topTeachers)
+			]);
+			setUsers(resUsers.data);
+			setTopTeachers(resTopTeachers.data);
 		} catch (err: any) {
 			setError(err.message || 'Lỗi khi tải người dùng');
 		} finally {
@@ -21,9 +26,23 @@ export default function useUsers() {
 		}
 	}, []);
 
+	  const fetchTeacherById = useCallback(async (id: number) => {
+		try {
+			const res = await axios.get<User>(`${API_URL.users}/${id}`);
+			if (res.data.role === 'TEACHER') {
+				return res.data;
+			} else {
+				return null;
+			}
+		} catch (err) {
+			console.error('Không tìm thấy teacher:', err);
+			return null;
+		}
+	}, []);
+
 	useEffect(() => {
 		fetchData();
 	}, [fetchData]);
 
-	return { users, loading, error, refetch: fetchData };
+	return { users, topTeachers, loading, error, refetch: fetchData, fetchTeacherById };
 }
