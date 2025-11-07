@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Pressable, KeyboardAvoidingView, Platform} from 'react-native';
+import { View, Text, StyleSheet, TextInput, Pressable, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -16,17 +16,20 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = async () => {
+const handleLogin = async () => {
+  try {
     const success = await login(email, password);
-    if (success) navigation.replace('Profile'); // chuyển sang tab Profile sau khi login
-  };
+    if (success) {
+      navigation.replace('Profile');
+    }
+  } catch (err: any) {
+    Alert.alert('Đăng nhập thất bại', err.message);
+  }
+};
+
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
-      >
         <View style={styles.content}>
           <Ionicons name="school-outline" size={80} color="#00bfff" style={styles.logo} />
           <Text style={styles.title}>Chào mừng trở lại!</Text>
@@ -72,7 +75,6 @@ export default function LoginScreen() {
             <Text style={styles.registerButtonText}>Tạo tài khoản mới</Text>
           </Pressable>
         </View>
-      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

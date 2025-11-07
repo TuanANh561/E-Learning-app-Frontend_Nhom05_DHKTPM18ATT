@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { axiosInstance } from './api';
 import { User } from '../types';
+import { Alert } from 'react-native';
 
 interface AuthContextType {
   user: User | null;
@@ -40,19 +41,35 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = useCallback(async (email: string, password: string) => {
     setLoading(true);
     try {
+      if (!email.trim()) {
+        Alert.alert('Lỗi', 'Email không được để trống');
+        return false;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        Alert.alert('Lỗi', 'Email không hợp lệ');
+        return false;
+      }
+      if (!password.trim()) {
+        Alert.alert('Lỗi', 'Mật khẩu không được để trống');
+        return false;
+      }
+
       const res = await axiosInstance.post('/api/auth/login', { email, password });
       if (res.data.status === 200 && res.data.data) {
         setUser(res.data.data);
         setIsLoggedIn(true);
         return true;
       }
+      Alert.alert('Đăng nhập thất bại', 'Email hoặc mật khẩu không đúng');
       return false;
-    } catch (error) {
+    } catch (err: any) {
+      Alert.alert('Đăng nhập thất bại', 'Có lỗi xảy ra, thử lại sau');
       return false;
     } finally {
       setLoading(false);
     }
   }, []);
+
 
   const logout = useCallback(async () => {
     try {

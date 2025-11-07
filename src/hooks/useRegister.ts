@@ -21,7 +21,7 @@ export default function useRegister() {
     try {
       const res = await axios.post(`${API_URL.users}/register`, data);
 
-      if (res.data.status === 200) {
+      if (res.data.status === 201) {
         return true;
       } else {
         setError(res.data.message || 'Đăng ký thất bại');
