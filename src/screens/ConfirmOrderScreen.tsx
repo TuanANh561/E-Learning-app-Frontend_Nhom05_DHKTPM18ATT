@@ -34,19 +34,19 @@ export default function ConfirmOrderScreen() {
         {/* Giá */}
         <View style={styles.priceRow}>
           <Text style={styles.label}>Giá gốc</Text>
-          <Text style={styles.originalPrice}>${course.originalPrice}</Text>
+          <Text style={styles.originalPrice}>{(course.originalPrice).toLocaleString()} VNĐ</Text>
         </View>
 
         {course.originalPrice > course.price && (
           <View style={styles.priceRow}>
             <Text style={styles.label}>Giảm giá</Text>
-            <Text style={styles.discount}>-${course.originalPrice - course.price}</Text>
+            <Text style={styles.discount}>-{(course.originalPrice - course.price).toLocaleString()}VNĐ</Text>
           </View>
         )}
 
         <View style={styles.totalRow}>
           <Text style={styles.totalLabel}>Tổng cộng</Text>
-          <Text style={styles.totalPrice}>${course.price}</Text>
+          <Text style={styles.totalPrice}>{(course.price).toLocaleString()}VNĐ</Text>
         </View>
 
         {/* Nút tiếp tục */}

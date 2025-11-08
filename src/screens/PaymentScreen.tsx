@@ -62,7 +62,7 @@ export default function PaymentScreen() {
 
         <View style={styles.totalRow}>
           <Text style={styles.totalLabel}>Tổng cộng</Text>
-          <Text style={styles.totalPrice}>${course.price}</Text>
+          <Text style={styles.totalPrice}>{(course.price).toLocaleString()} VNĐ</Text>
         </View>
 
         <Text style={styles.sectionTitle}>Phương thức thanh toán</Text>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { API_URL } from './api'
+import { useAuth } from './AuthContext';
 
 export interface OrderResponse {
   orderId: number;
@@ -13,6 +14,8 @@ export interface OrderResponse {
 export default function useOrders() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { user } = useAuth();
+  const userId = user?.id || 0;
 
   const createOrderAndEnroll = async (courseId: number, paymentMethod: string) => {
     setLoading(true);
@@ -22,7 +25,7 @@ export default function useOrders() {
         courseId,
         paymentMethod,
       }, {
-        params: { user_id: 1 }
+        params: { user_id: userId }
       });
       return res.data.data;
     } catch (err: any) {
